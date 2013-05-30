@@ -36,4 +36,14 @@ Maid.rules do
       end
     end
   end
+
+  # Move pdf files that already have text to folder where I check to make sure they are complete
+  rule 'Move pdf files that are already OCRed' do
+    dir('~/Dropbox/_maid/ocr-pdf/*.pdf').each do |pdf_file|
+      pdf_text = cmd("/usr/bin/mdimport -d2 \"#{pdf_file}\" 2>&1")
+      if pdf_text.include?("kMDItemTextContent")
+        move(pdf_file, '~/Dropbox/_maid/_manual-sort')
+      end
+    end
+  end
 end
