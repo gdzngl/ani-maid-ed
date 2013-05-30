@@ -1,0 +1,8 @@
+# Compiled Apple scripts
+*.scpt
+
+# DS Store
+.DS_Store
+
+# Vim
+*.swp
