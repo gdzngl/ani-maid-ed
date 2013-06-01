@@ -1,5 +1,5 @@
-require_realtive 'constants.rb'
-require_relative 'helper.rb'
+require File.expand_path('../constants.rb', __FILE__)
+require File.expand_path('../helper.rb', __FILE__)
 # Test using:
 #
 #     maid clean -n
@@ -50,6 +50,8 @@ Maid.rules do
   end
 
   # Rename file based on date in content
+  # I have more of these in a separate rules file
+  # Since most of them will have account numbers I'm not checking them in.
   rule "Rename pdf files based on contents" do
     dir('~/Dropbox/_maid/rename-content/*.pdf').each do |pdf_file|
       pdf_text = cmd("/usr/bin/mdimport -d2 \"#{pdf_file}\" 2>&1")
