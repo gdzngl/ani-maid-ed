@@ -1,3 +1,5 @@
+require_realtive 'constants.rb'
+require_relative 'helper.rb'
 # Test using:
 #
 #     maid clean -n
@@ -51,6 +53,13 @@ Maid.rules do
   rule "Rename pdf files based on contents" do
     dir('~/Dropbox/_maid/rename-content/*.pdf').each do |pdf_file|
       pdf_text = cmd("/usr/bin/mdimport -d2 \"#{pdf_file}\" 2>&1")
+
+      # Daycare statements
+      if pdf_text.include?(DAYCARE) && pdf_text.include?("Statement")
+        file_date = find_mdy_slash_date(pdf_text, "From:? ")
+        new_name = rename_with_date(pdf_file, file_date, DC_FN)
+        move_to_filecabinet(new_name, DC_FOLDER, false)
+      end
     end
   end
 
