@@ -6,3 +6,7 @@
 
 # Vim
 *.swp
+
+# confidential
+maid.log
+constants.rb

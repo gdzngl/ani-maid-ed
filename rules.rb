@@ -37,7 +37,7 @@ Maid.rules do
     end
   end
 
-  # Move pdf files that already have text to folder where I check to make sure they are complete
+  # Move pdf files that already have text to folder where I check them
   rule 'Move pdf files that are already OCRed' do
     dir('~/Dropbox/_maid/ocr-pdf/*.pdf').each do |pdf_file|
       pdf_text = cmd("/usr/bin/mdimport -d2 \"#{pdf_file}\" 2>&1")
@@ -46,4 +46,12 @@ Maid.rules do
       end
     end
   end
+
+  # Rename file based on date in content
+  rule "Rename pdf files based on contents" do
+    dir('~/Dropbox/_maid/rename-content/*.pdf').each do |pdf_file|
+      pdf_text = cmd("/usr/bin/mdimport -d2 \"#{pdf_file}\" 2>&1")
+    end
+  end
+
 end
