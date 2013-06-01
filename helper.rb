@@ -3,8 +3,8 @@ def find_mdy_slash_date(text, date_pre)
   date_regex = /#{date_pre}#{date_only}/
   text_date = text.match(date_regex)
   unless text_date.nil?
-    #yr = (text_date[3].length == 4 ? text_date[3] : "20#{text_date[3]}"
-    yr = text_date[3]
+    yr = (text_date[3].length == 4 ? text_date[3] : "20#{text_date[3]}")
+    #yr = text_date[3]
     mo = "%02d" % text_date[1].to_i
     day = "%02d" % text_date[2].to_i
     return "#{yr}-#{mo}-#{day}"
