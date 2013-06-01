@@ -65,4 +65,11 @@ Maid.rules do
     end
   end
 
+  rule "Email files to myself" do
+    dir('~/Dropbox/_maid/mailto-me/*').each do |file|
+      fn = File.basename(file)
+      log("uuencode #{file} #{fn} | mail -s '#{fn}' #{MY_EMAIL}")
+    end
+  end
+
 end
