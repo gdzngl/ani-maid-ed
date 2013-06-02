@@ -1,6 +1,7 @@
-require 'chronic' #for parsing dates not in a nice format
+require 'date'
 
 def find_mdy_slash_date(text, date_pre)
+  #date_only = /(\w*)\.?\s(\d?\s?\d)\s?\,\s(\d?\s?\d?\s?\d\s?\d)/
   date_only = /(\d?\d)\/\s?(\d?\d)\/\s?(\d?\d?\d\d)/
   date_regex = /#{date_pre}#{date_only}/
   text_date = text.match(date_regex)
@@ -16,13 +17,17 @@ def find_mdy_slash_date(text, date_pre)
   end
 end
 
-def find_date(text, date_pre)
-  date_only = /(\w*)\.?\s(\d?\d)\,\s(\d?\d?\d\d)/ 
+def find_date(text, date_pre, date_format)
+  date_only = ""
+  case date_format
+  when "%m/%d/%Y" "%m/%d/%y"
+    date_only = '(\d?\d\/\s?\d?\d\/\s?\d?\d?\d\d)'
+  end
   date_regex = /#{date_pre}#{date_only}/
   text_date = text.match(date_regex)
-  unless text_date.nil?
-    this_date = Chronic.parse("#{text_date[1]} #{text_date[2]} #{text_date[3]}")
-    return this_date.strftime("%F")
+  unless text_date[2].nil?
+    real_date = Date.strptime(text_date[2], date_format)
+    return real_date.strftime("%F")
   else
     log(text)
     return "nil"
