@@ -65,6 +65,8 @@ Maid.rules do
     end
   end
 
+  # Used the touch command here to make sure the command completed successfully
+  # Feels like there should be a better way
   rule "Email files to myself" do
     dir('~/Dropbox/_maid/mailto-me/*').each do |file|
       fn = File.basename(file)
