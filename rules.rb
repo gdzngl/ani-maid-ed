@@ -53,7 +53,7 @@ Maid.rules do
   # I have more of these in a separate rules file
   # Since most of them will have account numbers I'm not checking them in.
   rule "Rename pdf files based on contents" do
-    dir('~/Dropbox/_maid/rename-content/*.pdf').each do |pdf_file|
+    dir('~/Dropbox/_maid/_manual-sort/*.pdf').each do |pdf_file|
       pdf_text = cmd("/usr/bin/mdimport -d2 \"#{pdf_file}\" 2>&1")
 
       # Daycare statements
@@ -68,7 +68,16 @@ Maid.rules do
   rule "Email files to myself" do
     dir('~/Dropbox/_maid/mailto-me/*').each do |file|
       fn = File.basename(file)
+      mod_time = modified_at(file)
       log("uuencode #{file} #{fn} | mail -s '#{fn}' #{MY_EMAIL}")
+      cmd("uuencode #{file} #{fn} | mail -s '#{fn}' #{MY_EMAIL} && touch #{file}")
+      new_mod_time = modified_at(file)
+      unless mod_time == new_mod_time
+        move(file, '~/Dropbox/_maid/processed')
+      else
+        puts mod_time.to_s
+        puts new_mod_time.to_s
+      end
     end
   end
 
