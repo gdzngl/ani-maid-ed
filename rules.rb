@@ -49,22 +49,6 @@ Maid.rules do
     end
   end
 
-  # Rename file based on date in content
-  # I have more of these in a separate rules file
-  # Since most of them will have account numbers I'm not checking them in.
-  rule "Rename pdf files based on contents" do
-    dir('~/Dropbox/_maid/_manual-sort/*.pdf').each do |pdf_file|
-      pdf_text = cmd("/usr/bin/mdimport -d2 \"#{pdf_file}\" 2>&1")
-
-      # Daycare statements
-      if pdf_text.include?(DAYCARE) && pdf_text.include?("Statement")
-        file_date = find_mdy_slash_date(pdf_text, "From:? ")
-        new_name = rename_with_date(pdf_file, file_date, DC_FN)
-        move_to_filecabinet(new_name, DC_FOLDER, false)
-      end
-    end
-  end
-
   # Used the touch command here to make sure the command completed successfully
   # Feels like there should be a better way
   rule "Email files to myself" do
@@ -82,5 +66,6 @@ Maid.rules do
       end
     end
   end
+
 
 end

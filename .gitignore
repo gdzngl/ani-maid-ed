@@ -10,5 +10,4 @@
 # confidential
 maid.log
 constants.rb
-check_pdfs.rb
 check_other_pdfs.rb
