@@ -11,6 +11,7 @@ Maid.rules do
 
       this_path = File.dirname(pdf_file)
       this_file_name = File.basename(pdf_file)
+      log("") #blank line for clarity
       log("-----#{this_file_name}-----")
       matched = false
 
