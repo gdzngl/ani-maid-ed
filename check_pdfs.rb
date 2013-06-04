@@ -42,9 +42,11 @@ Maid.rules do
             end
           end
         end
-        unless matched
-          log(pdf_text)
-        end
+      end
+
+      unless matched
+        log("----#{this_file_name} wasn't matched.")
+        log(pdf_text)
       end
     end
   end
