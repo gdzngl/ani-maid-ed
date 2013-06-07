@@ -21,6 +21,7 @@ Maid.rules do
           unless pdf_file.include?(item[:file_name])
             rename(pdf_file, "#{this_path}/#{item[:file_name]}")
             matched = true
+            break
           else
             file_date = find_date(pdf_text, item[:date_pre], item[:date_format])
             unless pdf_file.include?(file_date)
@@ -30,11 +31,13 @@ Maid.rules do
                 log("#{pdf_file} has a bad date - #{file_date}")
               end
               matched = true
+              break
             else
               yr = this_file_name[0..3]
               if yr.match(/\d\d\d\d/)
                 rename(pdf_file, "#{item[:move_path]}/#{yr}/#{this_file_name}")
                 matched = true
+                break
               else
                 log("Error with #{pdf_file} file name.")
                 matched = true
