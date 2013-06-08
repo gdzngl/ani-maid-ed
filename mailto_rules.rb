@@ -1,2 +1,0 @@
-Maid.rules do
-end
