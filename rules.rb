@@ -7,15 +7,6 @@ require File.expand_path('../helper.rb', __FILE__)
 # If you come up with some cool tools of your own, please send me a pull request on GitHub!  Also, please consider sharing your rules with others via [the wiki](https://github.com/benjaminoakes/maid/wiki).
 
 Maid.rules do
-  # Desktop Screenshots
-  rule 'Cleanup Misc Screenshots after 1 week' do
-    dir('~/Desktop/Screen shot *').each do |path|
-      if 1.week.since?(accessed_at(path))
-        trash(path)
-      end
-    end
-  end
-
   # Files that have been processed and converted to something else
   # JPGs converted to pdfs
   # PDFs that have been combined with others
@@ -60,12 +51,6 @@ Maid.rules do
       new_mod_time = modified_at(file)
       unless mod_time == new_mod_time
         move(file, '~/Dropbox/_maid/processed')
-      else
-        puts mod_time.to_s
-        puts new_mod_time.to_s
-      end
     end
   end
-
-
 end
