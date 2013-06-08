@@ -53,4 +53,11 @@ Maid.rules do
         move(file, '~/Dropbox/_maid/processed')
     end
   end
+
+  # Move email attachments to ocr-pdf folder
+  rule "Move attachments to ocr-pdf folder" do
+    dir('~/Dropbox/Apps/ifttt/attachments/*.pdf').each do |file|
+      move(file, '~/Dropbox/_maid/ocr-pdf')
+    end
+  end
 end
